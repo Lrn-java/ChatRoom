@@ -84,9 +84,11 @@ public class LoginScreen extends JFrame {
         //设置下边框可见
         Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
 
-        jTextField.setText("QQ账号/游客账号");
+        jTextField.setText("        QQ账号/游客账号");
         jTextField.setFont(new Font("微软雅黑",Font.PLAIN,15));
         jTextField.setBounds(440,250,200,30);
+        jTextField.setOpaque(false);
+        jTextField.setForeground(new Color(0,0,0,128));
         jTextField.setBorder(border);
 
         jPasswordField.setFont(new Font("微软雅黑",Font.PLAIN,15));
@@ -104,8 +106,11 @@ public class LoginScreen extends JFrame {
             @Override
             public void mouseExited(MouseEvent e){
                 if(jTextField.getText().equals("")){
-                    jTextField.setText("QQ账号/游客账号");
+                    jTextField.setText("        QQ账号/游客账号");
+                }else{
+                    jTextField.setOpaque(true);
                 }
+
                 super.mouseExited(e);
             }
 
