@@ -12,7 +12,7 @@ import java.awt.event.*;
  */
 public class LoginScreen extends JFrame {
     /**
-     * 我们需要对不同设备的屏幕尺寸来定义登录界面的坐标，因此有以下成员变量
+     * 我们需要对不同设备的屏幕尺寸来定义登录界面的坐标，因此有以下重要成员变量
      * high：窗口高度
      * Dimension：获取屏幕像素
      * getScreenWide：获取屏幕宽度
@@ -23,12 +23,9 @@ public class LoginScreen extends JFrame {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int getScreenWide = screenSize.width;
     private final int getScreenHigh = screenSize.height;
-
-
     private final JTextField jTextField = new JTextField();
     private final JPasswordField jPasswordField = new JPasswordField();
     private final Container container = getContentPane();
-
     private final ImageIcon imageIcon = new ImageIcon("D:\\IDEA-Work\\ChatRoom\\src\\ChatRoom\\li\\Material\\登录界面素材.png");
     private final JButton VisitorLogin = new JButton();
     private final JButton QQ_Login = new JButton();
