@@ -101,10 +101,14 @@ public class LoginScreen extends JFrame {
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
-                jTextField.setText("QQ账号/游客账号");
+            public void mouseExited(MouseEvent e){
+                if(jTextField.getText().equals("")){
+                    jTextField.setText("QQ账号/游客账号");
+                }
+
                 super.mouseExited(e);
             }
+
         });
 
         //添加组件
