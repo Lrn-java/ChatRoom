@@ -1,13 +1,15 @@
 package ChatRoom.li.Run;
 
+import ChatRoom.li.LoginScreen.LoginScreen;
+
 /**
- * 这个类是程序的运行类
+ * 运行类，用来运行程序的
  * @author Lrn
  */
 public class Run {
 
     public static void main(String[] args){
-        
+        new LoginScreen();
     }
 
 }
