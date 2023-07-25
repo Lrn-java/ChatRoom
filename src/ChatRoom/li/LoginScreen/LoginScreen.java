@@ -93,6 +93,7 @@ public class LoginScreen extends JFrame {
         jPasswordField.setBounds(440,300,200,30);
         jPasswordField.setBorder(border);
 
+        //添加鼠标监听效果
         jTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -105,7 +106,6 @@ public class LoginScreen extends JFrame {
                 if(jTextField.getText().equals("")){
                     jTextField.setText("QQ账号/游客账号");
                 }
-
                 super.mouseExited(e);
             }
 
