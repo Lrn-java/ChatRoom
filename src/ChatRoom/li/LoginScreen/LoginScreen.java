@@ -6,13 +6,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * 这个类的作用创建登录界面的属性
+ * 这个类是定义登录界面属性
+ * 创建时间：2023/7/25 17:30
  * @author Lrn
  */
 public class LoginScreen extends JFrame {
     /**
-     * 我们需要对不同设备的屏幕尺寸大小来定义登录界面的坐标，因此有以下成员变量
-     * wide：窗口宽度
+     * 我们需要对不同设备的屏幕尺寸来定义登录界面的坐标，因此有以下成员变量
      * high：窗口高度
      * Dimension：获取屏幕像素
      * getScreenWide：获取屏幕宽度
