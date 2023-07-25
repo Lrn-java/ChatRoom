@@ -3,6 +3,8 @@ package ChatRoom.li.LoginScreen;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.*;
+
 /**
  * 这个类的作用创建登录界面的属性
  * @author Lrn
@@ -31,14 +33,15 @@ public class LoginScreen extends JFrame {
     private final JButton VisitorLogin = new JButton();
     private final JButton QQ_Login = new JButton();
 
-
+    /**
+     * 登录界面属性
+     */
     public LoginScreen(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(wide,high);
         setLocation(getsX(),getsY());
         setIconImage(null);
         setBackground(new Color(0xFFFFFF));
-
         setLayout(null);
 
         //添加登录界面背景
@@ -48,29 +51,9 @@ public class LoginScreen extends JFrame {
         getLayeredPane().add(jLabel,minValue);
         JPanel jPanel = (JPanel) getContentPane();
 
-        Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
-
-        jTextField.setText("QQ账号/游客账号");
-        jTextField.setBounds(440,250,200,30);
-        jTextField.setBorder(border);
-
-        jPasswordField.setText("密码");
-        jPasswordField.setBounds(440,300,200,30);
-        jPasswordField.setBorder(border);
-
-        VisitorLogin.setText("游客登录");
-        VisitorLogin.setBounds(553,340,85,30);
-
-        QQ_Login.setText("登 录");
-        QQ_Login.setBounds(440,340,85,30);
-
-
         //添加组件
-        container.add(jTextField);
-        container.add(jPasswordField);
-        //添加按钮
-        container.add(VisitorLogin);
-        container.add(QQ_Login);
+        setButton();
+        setTextField();
 
         setResizable(false);
         jPanel.setOpaque(false);
@@ -97,5 +80,72 @@ public class LoginScreen extends JFrame {
         return (this.getScreenHigh - high) / 2;
     }
 
+    /**
+     * 设置文本框属性
+     */
+    private void setTextField(){
+        //设置下边框可见
+        Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
+
+        jTextField.setText("QQ账号/游客账号");
+        jTextField.setFont(new Font("微软雅黑",Font.PLAIN,15));
+        jTextField.setBounds(440,250,200,30);
+        jTextField.setBorder(border);
+
+        jPasswordField.setFont(new Font("微软雅黑",Font.PLAIN,15));
+        jPasswordField.setBounds(440,300,200,30);
+        jPasswordField.setBorder(border);
+
+        jTextField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jTextField.setText("");
+                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jTextField.setText("QQ账号/游客账号");
+                super.mouseExited(e);
+            }
+        });
+
+        //添加组件
+        container.add(jTextField);
+        container.add(jPasswordField);
+    }
+
+    /**
+     * 设置按钮属性
+     */
+    private void setButton(){
+        VisitorLogin.setText("游客登录");
+        VisitorLogin.setBounds(553,340,85,30);
+        VisitorLogin.setBackground(new Color(0x328FFA));
+        VisitorLogin.setForeground(new Color(0xFFFFFF));
+
+        QQ_Login.setText("登 录");
+        QQ_Login.setBounds(440,340,85,30);
+        QQ_Login.setBackground(new Color(0x328FFA));
+        QQ_Login.setForeground(new Color(0xFFFFFF));
+
+        VisitorLogin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                VisitorLogin.setText("");
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                VisitorLogin.setText("游客登录");
+                super.mouseExited(e);
+            }
+        });
+
+        //添加按钮
+        container.add(VisitorLogin);
+        container.add(QQ_Login);
+    }
 
 }
