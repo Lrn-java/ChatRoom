@@ -55,6 +55,13 @@ public class LoginScreen extends JFrame {
         setResizable(false);
         jPanel.setOpaque(false);
         setVisible(true);
+
+        Color color = jTextField.getCaretColor();
+        int red = color.getRed();
+        int g = color.getGreen();
+        int r = color.getBlue();
+        System.out.println( "默认前景的RGB值：(" + red + ", " + g + ", " + r + ")");
+
     }
 
     /**
@@ -83,8 +90,9 @@ public class LoginScreen extends JFrame {
     private void setTextField(){
         //设置下边框可见
         Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
+        final String text = "        QQ账号/游客账号";
 
-        jTextField.setText("        QQ账号/游客账号");
+        jTextField.setText(text);
         jTextField.setFont(new Font("微软雅黑",Font.PLAIN,15));
         jTextField.setBounds(440,250,200,30);
         jTextField.setOpaque(false);
@@ -106,16 +114,46 @@ public class LoginScreen extends JFrame {
             @Override
             public void mouseExited(MouseEvent e){
                 if(jTextField.getText().equals("")){
-                    jTextField.setText("        QQ账号/游客账号");
-                }else{
-                    jTextField.setOpaque(true);
+                    jTextField.setText(text);
+                    jTextField.setOpaque(false);
+                    jTextField.setForeground(new Color(0,0,0,128));
                 }
-
                 super.mouseExited(e);
             }
 
         });
 
+        jTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(jTextField.getText().equals(text)){
+                    jTextField.setOpaque(false);
+                    jTextField.setForeground(new Color(0,0,0,128));
+                }
+                    jTextField.setOpaque(false);
+                    jTextField.setForeground(new Color(0x000000));
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(jTextField.getText().equals(text)){
+                    jTextField.setOpaque(false);
+                    jTextField.setForeground(new Color(0,0,0,128));
+                }
+                jTextField.setOpaque(false);
+                jTextField.setForeground(new Color(0x000000));
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(jTextField.getText().equals(text)){
+                    jTextField.setOpaque(false);
+                    jTextField.setForeground(new Color(0,0,0,128));
+                }
+                jTextField.setOpaque(false);
+                jTextField.setForeground(new Color(0x000000));
+            }
+        });
         //添加组件
         container.add(jTextField);
         container.add(jPasswordField);
