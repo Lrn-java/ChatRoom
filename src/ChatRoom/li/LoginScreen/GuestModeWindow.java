@@ -184,12 +184,14 @@ public class GuestModeWindow {
                 String passwordT = String.valueOf(password2);
 
                 int len = jTextField.getText().length();
-                //判断用户注册是否符合规则
-                boolean isPasswordValid = len > index[0] && len <= index[1] &&
-                        passwordO.equals(passwordT) &&
+                //判断用户注册信息是否符合规则
+                boolean isTextField = len > index[0] && len <= index[1];
+
+                boolean isPasswordValid = passwordO.equals(passwordT) &&
                         passwordO.length() >= index[1] && passwordO.length() <= index[2];
+
                 //进行判断
-                if (isPasswordValid) {
+                if (isTextField && isPasswordValid) {
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
                     //清除注册后文本框中所有信息
