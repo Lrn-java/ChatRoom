@@ -119,22 +119,24 @@ public class LoginScreen extends JFrame {
         jTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(jTextField.getText().equals(text)){
-                    jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0,0,0,128));
-                }
+                if(!jTextField.getText().equals(text)){
                     jTextField.setOpaque(false);
                     jTextField.setForeground(new Color(0x000000));
+                }
+                jTextField.setOpaque(false);
+                jTextField.setForeground(new Color(0,0,0,128));
+
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(jTextField.getText().equals(text)){
+                if(!jTextField.getText().equals(text)){
                     jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0,0,0,128));
+                    jTextField.setForeground(new Color(0x000000));
                 }
                 jTextField.setOpaque(false);
-                jTextField.setForeground(new Color(0x000000));
+                jTextField.setForeground(new Color(0,0,0,128));
+
             }
 
             @Override
