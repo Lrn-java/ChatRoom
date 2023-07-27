@@ -198,8 +198,8 @@ public class GuestModeWindow {
                     try {
                         String errorMessage = "用户信息无效！\n" +
                                 "用户名长度必须为 1-3 个字符,密码长度必须介于 6 到 16 个字符之间,两次密码必须一致!";
+                        //若注册失败，则重新刷新默认用户名
                         int count = 5;
-                        //随机生成一个用户名并追加到user中
                         StringBuilder user = new StringBuilder();
                         for (int i = 0; i < count; i++) {
                             user.append(generateSimpleChineseChar());
