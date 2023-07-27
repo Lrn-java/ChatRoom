@@ -18,11 +18,11 @@ public class LoginScreen extends JFrame {
      * getScreenWide：获取屏幕宽度
      * getScreenHigh：获取屏幕高度
      */
-    private final int wide = 695;
-    private final int high = 530;
+    protected   int wide = 695;
+    protected   int high = 530;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int getScreenWide = screenSize.width;
-    private final int getScreenHigh = screenSize.height;
+    protected final int getScreenWide = screenSize.width;
+    protected final int getScreenHigh = screenSize.height;
     private final JTextField jTextField = new JTextField();
     private final JPasswordField jPasswordField = new JPasswordField();
     private final Container container = getContentPane();
@@ -55,13 +55,6 @@ public class LoginScreen extends JFrame {
         setResizable(false);
         jPanel.setOpaque(false);
         setVisible(true);
-
-        Color color = jTextField.getCaretColor();
-        int red = color.getRed();
-        int g = color.getGreen();
-        int r = color.getBlue();
-        System.out.println( "默认前景的RGB值：(" + red + ", " + g + ", " + r + ")");
-
     }
 
     /**
@@ -69,7 +62,7 @@ public class LoginScreen extends JFrame {
      *
      * @return 窗口水平位置
      */
-    private int getsX(){
+    protected int getsX(){
         //通过屏幕宽度减去窗口宽度并除以2，得到水平位置
         return (this.getScreenWide - wide ) / 2;
     }
@@ -79,7 +72,7 @@ public class LoginScreen extends JFrame {
      *
      * @return 窗口垂直位置
      */
-    private int getsY(){
+    protected int getsY(){
         //通过屏幕高度减去窗口高度并除以2，得到垂直位置
         return (this.getScreenHigh - high) / 2;
     }
@@ -87,7 +80,7 @@ public class LoginScreen extends JFrame {
     /**
      * 设置文本框属性
      */
-    private void setTextField(){
+    protected void setTextField(){
         //设置下边框可见
         Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
         final String text = "        QQ账号/游客账号";
@@ -162,27 +155,50 @@ public class LoginScreen extends JFrame {
     /**
      * 设置按钮属性
      */
-    private void setButton(){
+    protected void setButton(){
         VisitorLogin.setText("游客登录");
-        VisitorLogin.setBounds(553,340,85,30);
+        VisitorLogin.setBounds(553,340,88,30);
         VisitorLogin.setBackground(new Color(0x328FFA));
         VisitorLogin.setForeground(new Color(0xFFFFFF));
 
         QQ_Login.setText("登 录");
-        QQ_Login.setBounds(440,340,85,30);
+        QQ_Login.setBounds(440,340,88,30);
         QQ_Login.setBackground(new Color(0x328FFA));
         QQ_Login.setForeground(new Color(0xFFFFFF));
 
         VisitorLogin.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new GuestModeWindow();
+                super.mouseClicked(e);
+            }
+
             @Override
             public void mouseEntered(MouseEvent e) {
-                VisitorLogin.setText("");
+                VisitorLogin.setFont(new Font("微软雅黑",Font.PLAIN,13));
                 super.mouseEntered(e);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                VisitorLogin.setFont(new Font("Dialog",Font.PLAIN,12));
                 VisitorLogin.setText("游客登录");
+                super.mouseExited(e);
+            }
+        });
+
+        QQ_Login.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                QQ_Login.setFont(new Font("微软雅黑",Font.PLAIN,13));
+                super.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                QQ_Login.setFont(new Font("Dialog",Font.PLAIN,12));
+                QQ_Login.setText("登 录");
                 super.mouseExited(e);
             }
         });
