@@ -33,6 +33,10 @@ public class GuestModeWindow {
     JPasswordField jPasswordFieldTwo = new JPasswordField();
     JLabel welcome = new JLabel("欢迎注册ChatRoom");
     JLabel title = new JLabel("每一天,乐在沟通");
+    JLabel userName = new JLabel("用户名");
+    JLabel passwordOne = new JLabel("密 码:");
+    JLabel passwordTwo = new JLabel("密 码:");
+
     /**
      * 窗口之间的阻塞
      */
@@ -67,6 +71,8 @@ public class GuestModeWindow {
         JPanel jPanel = (JPanel) jFrame.getContentPane();
 
         setTextField();
+
+        jFrame.setResizable(false);
         jPanel.setOpaque(false);
         //窗口可见性
         jFrame.setVisible(true);
@@ -92,7 +98,7 @@ public class GuestModeWindow {
     }
 
     /**
-     * 通过固定汉字，随机生成一个用户名
+     * 通过固定汉字，这个方法被调用后，会随机进行排列组合一个用户名
      * @return 随机生成用户名
      */
     private static String generateSimpleChineseChar(){
@@ -102,18 +108,17 @@ public class GuestModeWindow {
                 "能", "还", "下", "过", "子", "对", "自", "年", "前", "能", "后", "就", "到", "等", "与", "面", "着",
                 "&","*","#","@","<",">","/","^","%","-","}","{","[","]","s","a","P"
         };
-        Random random = new Random();
-        int index = random.nextInt(chineseChars.length);
+        int index = new Random().nextInt(chineseChars.length);
         return chineseChars[index];
     }
 
     /**
-     * 设置用户名框，并随机生成一个数组
+     * 设置注册用户名框
      */
     public void setTextField(){
         Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
         int count = 5;
-        //将随机生成的五个汉字依次添加到user中
+        //随机生成一个用户名并追加到user中
         StringBuilder user = new StringBuilder();
         for (int i = 0; i < count; i++) {
             user.append(generateSimpleChineseChar());
@@ -123,11 +128,31 @@ public class GuestModeWindow {
         panel.setOpaque(false);
         panel.setLayout(new FlowLayout());
         panel.add(jTextField);
+
         //默认显示随机生成的用户名
         jTextField.setText(String.valueOf(user));
-        jTextField.setBounds(100,90,180,28);
+        jTextField.setBounds(100,100,180,28);
         jTextField.setBorder(border);
+
+        userName.setBounds(100,75,60,30);
+        passwordOne.setBounds(100,130,50,30);
+        passwordTwo.setBounds(100,190,50,30);
+
+        jPasswordFieldOne.setBounds(100,160,180,28);
+        jPasswordFieldOne.setBorder(border);
+
+        jPasswordFieldTwo.setBounds(100,220,180,28);
+        jPasswordFieldTwo.setBorder(border);
+
+
+        //添加组件
+        container.add(userName);
+        container.add(passwordOne);
+        container.add(passwordTwo);
+
         container.add(jTextField);
+        container.add(jPasswordFieldOne);
+        container.add(jPasswordFieldTwo);
     }
 
 
