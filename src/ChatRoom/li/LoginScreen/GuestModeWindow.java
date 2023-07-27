@@ -187,8 +187,7 @@ public class GuestModeWindow {
 
                 if (len > index[0] && len <= index[1] &&
                         passwordO.equals(passwordT) &&
-                        passwordO.length() >= index[1] &&
-                        passwordO.length() <= index[2]) {
+                        passwordO.length() >= index[1] && passwordO.length() <= index[2]) {
 
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
