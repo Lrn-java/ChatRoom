@@ -26,7 +26,7 @@ public class LoginScreen extends JFrame {
     private final JTextField jTextField = new JTextField();
     private final JPasswordField jPasswordField = new JPasswordField();
     private final Container container = getContentPane();
-    private final ImageIcon imageIcon = new ImageIcon("D:\\IDEA-Work\\ChatRoom\\src\\ChatRoom\\li\\Material\\登录界面素材.png");
+    private final ImageIcon imageIcon = new ImageIcon("src\\ChatRoom\\li\\Material\\登录界面素材.png");
     private final JButton VisitorLogin = new JButton();
     private final JButton QQ_Login = new JButton();
 

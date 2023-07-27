@@ -78,8 +78,9 @@ public class GuestModeWindow {
      */
     private static String generateSimpleChineseChar(){
         String[] chineseChars = {
-                "一", "二", "三", "四", "五", "六", "七", "八", "九", "十",
-                "百", "千", "万", "人", "天", "山", "水", "火", "木", "金"
+                "的", "一", "是", "了", "我", "你", "他", "她", "它", "们", "在", "和", "有", "人", "这", "中", "大",
+                "为", "上", "个", "国", "不", "地", "到", "以", "说", "时", "要", "就", "出", "会", "可", "也", "得",
+                "能", "还", "下", "过", "子", "对", "自", "年", "前", "能", "后", "就", "到", "等", "与", "面", "着"
         };
         Random random = new Random();
         int index = random.nextInt(chineseChars.length);
@@ -87,18 +88,18 @@ public class GuestModeWindow {
     }
 
     /**
-     * 设置用户名文本框
+     * 设置用户名框，并随机生成一个数组
      */
     public void setTextField(){
         int count = 5;
-        //将随机生成的五个汉字依次添加到add中
+        //将随机生成的五个汉字依次添加到user中
         StringBuilder user = new StringBuilder();
         for (int i = 0; i < count; i++) {
             user.append(generateSimpleChineseChar());
         }
         //默认显示随机生成的用户名
         jTextField.setText(String.valueOf(user));
-        jTextField.setBounds(140,50,150,25);
+        jTextField.setBounds(130,50,150,28);
         container.add(jTextField);
     }
 
