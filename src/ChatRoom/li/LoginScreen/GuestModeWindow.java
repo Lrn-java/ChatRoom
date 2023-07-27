@@ -3,6 +3,8 @@ package ChatRoom.li.LoginScreen;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 /**
@@ -74,6 +76,8 @@ public class GuestModeWindow {
         JPanel jPanel = (JPanel) jFrame.getContentPane();
 
         setTextField();
+        setEnrollButton();
+
 
         jFrame.setResizable(false);
         jPanel.setOpaque(false);
@@ -162,5 +166,56 @@ public class GuestModeWindow {
         container.add(enroll);
     }
 
+    private final int[] index = new int[]{0,6,16};
+    /**
+     * 这个方法是立即注册按钮执行的操作
+     */
+    private void setEnrollButton(){
+        enroll.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //获取用户信息
+                char[] password1 = jPasswordFieldOne.getPassword();
+                char[] password2 = jPasswordFieldTwo.getPassword();
+
+                String passwordO = String.valueOf(password1);
+                String passwordT = String.valueOf(password2);
+
+                System.out.println(passwordO);
+                int len = jTextField.getText().length();
+
+                if (len > index[0] && len <= index[1] &&
+                        passwordO.length() >= index[1] && passwordO.length() <= index[2] &&
+                        passwordO.equals(passwordT)) {
+
+                    JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
+
+                    //清除注册后文本框中所有信息
+                    jPasswordFieldOne.setText("");
+                    jPasswordFieldOne.setText("");
+                    jFrame.setVisible(false);   //隐藏窗口
+                }else{
+                    try {
+                        String errorMessage = "用户信息无效！\n" +
+                                "用户名长度必须为 1-3 个字符,密码长度必须介于 6 到 16 个字符之间,两次密码必须一致!";
+                        int count = 5;
+                        //随机生成一个用户名并追加到user中
+                        StringBuilder user = new StringBuilder();
+                        for (int i = 0; i < count; i++) {
+                            user.append(generateSimpleChineseChar());
+                        }
+                        jTextField.setText(String.valueOf(user));
+                        //清空注册框中的密码信息
+                        jPasswordFieldOne.setText("");
+                        jPasswordFieldTwo.setText("");
+                        throw new UserNameMessageException(errorMessage);
+                    } catch (UserNameMessageException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                super.mouseClicked(e);
+            }
+        });
+    }
 
 }
