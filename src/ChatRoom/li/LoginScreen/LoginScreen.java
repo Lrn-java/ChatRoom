@@ -147,7 +147,7 @@ public class LoginScreen extends JFrame {
                     jTextField.setForeground(new Color(0,0,0,128));
                 }
                 jTextField.setOpaque(false);
-                jTextField.setForeground(new Color(0x000000));
+                jTextField.setForeground(new Color(0x000001));
             }
         });
         //添加组件
