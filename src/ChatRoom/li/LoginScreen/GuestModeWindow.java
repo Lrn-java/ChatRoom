@@ -181,7 +181,6 @@ public class GuestModeWindow {
                 String passwordO = String.valueOf(password1);
                 String passwordT = String.valueOf(password2);
 
-                System.out.println(passwordO);
                 int len = jTextField.getText().length();
 
                 if (len > index[0] && len <= index[1] &&
