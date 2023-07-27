@@ -37,6 +37,9 @@ public class GuestModeWindow {
     JLabel passwordOne = new JLabel("密 码:");
     JLabel passwordTwo = new JLabel("密 码:");
 
+    JButton enroll = new JButton("立即注册");
+
+
     /**
      * 窗口之间的阻塞
      */
@@ -144,6 +147,9 @@ public class GuestModeWindow {
         jPasswordFieldTwo.setBounds(100,220,180,28);
         jPasswordFieldTwo.setBorder(border);
 
+        enroll.setBounds(100,260,180,40);
+        enroll.setBackground(new Color(0x0085FF));
+        enroll.setForeground(new Color(0xFFFFFF));
 
         //添加组件
         container.add(userName);
@@ -153,6 +159,7 @@ public class GuestModeWindow {
         container.add(jTextField);
         container.add(jPasswordFieldOne);
         container.add(jPasswordFieldTwo);
+        container.add(enroll);
     }
 
 
