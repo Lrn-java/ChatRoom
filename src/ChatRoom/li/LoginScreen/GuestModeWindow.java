@@ -185,11 +185,10 @@ public class GuestModeWindow {
 
                 int len = jTextField.getText().length();
 
-                if (passwordO.length() <= index[2] &&
-                        len > index[0] &&
-                        len <= index[1] &&
+                if (len > index[0] && len <= index[1] &&
+                        passwordO.equals(passwordT) &&
                         passwordO.length() >= index[1] &&
-                        passwordO.equals(passwordT)) {
+                        passwordO.length() <= index[2]) {
 
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
