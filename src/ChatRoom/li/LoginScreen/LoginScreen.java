@@ -26,7 +26,6 @@ public class LoginScreen extends JFrame {
     private final JTextField jTextField = new JTextField();
     private final JPasswordField jPasswordField = new JPasswordField();
     private final Container container = getContentPane();
-    private final ImageIcon imageIcon = new ImageIcon("src\\ChatRoom\\li\\Material\\登录界面素材.png");
     private final JButton VisitorLogin = new JButton();
     private final JButton QQ_Login = new JButton();
 
@@ -42,6 +41,7 @@ public class LoginScreen extends JFrame {
         setLayout(null);
 
         //添加登录界面背景
+        ImageIcon imageIcon = new ImageIcon("src\\ChatRoom\\li\\Material\\登录界面素材.png");
         JLabel jLabel = new JLabel(imageIcon);
         jLabel.setBounds(0,0,400,530);
         Integer minValue = Integer.MIN_VALUE;
