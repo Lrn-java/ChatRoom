@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 /**
+ * 这个类游客登录窗口
+ * 创建时间：2023/7/27 22:00
  * @author Lrn
  */
 public class GuestModeWindow {
@@ -183,8 +185,10 @@ public class GuestModeWindow {
 
                 int len = jTextField.getText().length();
 
-                if (len > index[0] && len <= index[1] &&
-                        passwordO.length() >= index[1] && passwordO.length() <= index[2] &&
+                if (passwordO.length() <= index[2] &&
+                        len > index[0] &&
+                        len <= index[1] &&
+                        passwordO.length() >= index[1] &&
                         passwordO.equals(passwordT)) {
 
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
