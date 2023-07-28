@@ -198,13 +198,8 @@ public class GuestModeWindow implements WriteToDatabases{
                 //进行判断
                 if (isTextField && isPasswordValid) {
                     //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
-                    try {
-                        getMassage(String.valueOf(random_ID()),jTextField.getText(),passwordT);
-                    } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    getMassage(String.valueOf(random_ID()),jTextField.getText(),passwordT);
+
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
                     //清除注册后文本框中所有信息

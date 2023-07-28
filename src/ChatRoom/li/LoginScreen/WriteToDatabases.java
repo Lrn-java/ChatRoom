@@ -15,16 +15,14 @@ import java.util.Random;
 public interface WriteToDatabases {
 
     String mysql_user = "root";
-    String mysql_password = "";
-    String databasesURL = "jdbc:mysql://*:3306/user_info";
+    String mysql_password = "758206lrnandlxnA";
+    String databasesURL = "jdbc:mysql://192.168.1.7:3306/user_info";
 
-    default void getMassage(String iD, String usermessage, String password1) throws ClassNotFoundException,SQLException{
+    default void getMassage(String iD, String usermessage, String password1) {
         //写入到user_message数据库中，这个数据库中有一个表，用来保存用户名和密码这些基本信息
+        try {
 
-            //加载驱动
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //创建连接
             Connection connection = DriverManager.getConnection(databasesURL,mysql_user,mysql_password);
             //数据库的连接
             String insert = "INSERT INTO `users` (ID, username,password) VALUES (?, ?, ?)";;
@@ -34,7 +32,11 @@ public interface WriteToDatabases {
             ps.setString(3, password1);
             int a = ps.executeUpdate();
 
-            //抛出异常
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
