@@ -12,7 +12,7 @@ import java.util.Random;
  * 创建时间：2023/7/27 22:00
  * @author Lrn
  */
-public class GuestModeWindow {
+public class GuestModeWindow implements WriteToDatabases{
 
     /**
      * high：窗口高度
@@ -168,6 +168,9 @@ public class GuestModeWindow {
         container.add(enroll);
     }
 
+    /**
+     * 这个变量是用于判断用户注册时信息的长度是否符合规则
+     */
     private final int[] index = new int[]{0,6,16};
     /**
      * 这个方法是立即注册按钮执行的操作
@@ -184,14 +187,17 @@ public class GuestModeWindow {
                 String passwordT = String.valueOf(password2);
 
                 int len = jTextField.getText().length();
-                //判断用户注册信息是否符合规则
-                boolean isTextField = len > index[0] && len <= index[1];
 
+                //判断注册时用户名长度是否符合规则
+                boolean isTextField = len > index[0] && len <= index[1];
+                //判断注册时密码长度是否符合规则
                 boolean isPasswordValid = passwordO.equals(passwordT) &&
                         passwordO.length() >= index[1] && passwordO.length() <= index[2];
 
                 //进行判断
                 if (isTextField && isPasswordValid) {
+                    //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
+                    getMassage(String.valueOf(random_ID()),jTextField.getText(),passwordT);
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
                     //清除注册后文本框中所有信息
