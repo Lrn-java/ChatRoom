@@ -80,57 +80,13 @@ public interface WriteToDatabases {
         }
     }
 
+
     /**
-     * 通过查询后，最终生成的ID应存放在这里
+     * 调用这个方法后就可以进行查询是否有重复ID并且将ID写入数据库
+     * @param ID 这个ID是用户的身份证
+     * @param IP 这个用户的IP地址
      */
-    /**
-     * 调用这个方法后就可以进行查询是否有重复ID
-     * @param ID 这个ID是
-     * @param IP
-     */
-    default void duplicateID(String ID, String IP) {
-        try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {
-            String sql = "SELECT COUNT(*) FROM ip_addresses WHERE ID = ?";
-            String insertSql = "INSERT INTO ip_addresses (ID, ip_address) VALUES (?, ?)";
-
-            boolean isDuplicate = true;
-            String value = null;
-            do {
-                int valueToCheck = random_ID();
-                value = String.valueOf(valueToCheck);
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setInt(1, valueToCheck);
-                    ResultSet resultSet = statement.executeQuery();
-
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        if (count > 0) {
-
-                            // 数据库中已存在与生成的ID相同的记录，重新生成一个新的ID
-                        } else {
-                            // 数据库中不存在与生成的ID相同的记录，结束循环，将ID和IP写入数据库
-                            isDuplicate = false;
-                            try (PreparedStatement insertStatement = connection.prepareStatement(insertSql)) {
-                                insertStatement.setInt(1, valueToCheck);
-                                insertStatement.setString(2, IP);
-                                insertStatement.executeUpdate();
-
-                            }
-                        }
-                    }
-
-                    resultSet.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            } while (isDuplicate);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    String value = null;
-    default String get(String ID, String IP) {
+    default void get(String ID, String IP) {
         try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {
             String sql = "SELECT COUNT(*) FROM ip_addresses WHERE ID = ?";
             String insertSql = "INSERT INTO ip_addresses (ID, ip_address) VALUES (?, ?)";
@@ -197,7 +153,6 @@ public interface WriteToDatabases {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return value;
     }
 
 }
