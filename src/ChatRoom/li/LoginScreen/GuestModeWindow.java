@@ -1,11 +1,13 @@
 package ChatRoom.li.LoginScreen;
 
+import ChatRoom.li.GetMessage.GetIP;
+import ChatRoom.li.GetMessage.WriteToDatabases;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.Random;
 
 /**
@@ -13,7 +15,7 @@ import java.util.Random;
  * 创建时间：2023/7/27 22:00
  * @author Lrn
  */
-public class GuestModeWindow implements WriteToDatabases{
+public class GuestModeWindow implements WriteToDatabases, GetIP {
 
     /**
      * high：窗口高度
@@ -198,7 +200,11 @@ public class GuestModeWindow implements WriteToDatabases{
                 //进行判断
                 if (isTextField && isPasswordValid) {
                     //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
-                    getMassage(String.valueOf(random_ID()),jTextField.getText(),passwordT);
+                    String iD = String.valueOf(random_ID());
+                    final String id = iD;
+
+                    getMassage(id,jTextField.getText(),passwordT);
+                    getIP(id,getIPv4());
 
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
