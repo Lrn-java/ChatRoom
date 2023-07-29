@@ -197,14 +197,19 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
                 boolean isPasswordValid = passwordO.equals(passwordT) &&
                         passwordO.length() >= index[1] && passwordO.length() <= index[2];
 
-                //进行判断
-                if (isTextField && isPasswordValid) {
-                    //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
-                    String iD = String.valueOf(random_ID());
-                    final String id = iD;
 
-                    getMassage(id,jTextField.getText(),passwordT);
-                    getIP(id,getIPv4());
+                //进行用户名密码是否符合规则，执行相对应的操作
+                if (isTextField && isPasswordValid) {
+                    //判断数据库中是否有相同IP
+
+                    duplicateID();
+
+                    final String ID = String.valueOf(random_ID());
+
+                    //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
+                    getMassage(ID,jTextField.getText(),passwordT);
+                    //getIP();写入数据库，分别是ID号和用户名
+                    getIP(ID,getIPv4());
 
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
@@ -231,6 +236,8 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
                         ex.printStackTrace();
                     }
                 }
+
+                if
                 super.mouseClicked(e);
             }
         });

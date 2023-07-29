@@ -1,13 +1,11 @@
 package ChatRoom.li.GetMessage;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 /**
- * 这个接口是用来获取用户IP地址段的
+ * 这个接口是用来获取用户IP地址
  *
  * @author Lrn
  */

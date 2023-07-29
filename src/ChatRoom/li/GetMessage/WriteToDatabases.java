@@ -12,8 +12,8 @@ import java.util.Random;
 public interface WriteToDatabases {
 
     String mysql_user = "root";
-    String mysql_password = "758206lrnandlxnA";
-    String databasesURL = "jdbc:mysql://192.168.1.7:3306/user_info";
+    String mysql_password = "";
+    String databasesURL = "jdbc:mysql://:3306/user_info";
 
     default void getMassage(String iD, String usermessage, String password1) {
         //写入到user_message数据库中，这个数据库中有一个表，用来保存用户名和密码这些基本信息
@@ -47,43 +47,6 @@ public interface WriteToDatabases {
         return 100000 + new Random().nextInt(900000);
     }
 
-    /**
-     * 判断数据库中是否有相同ID号，如果有则，重新产生新ID
-     */
-    default void duplicateID() {
-        try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {
-            String sql = "SELECT COUNT(*) FROM users WHERE ID = ?";
-
-            int valueToCheck = random_ID();
-            boolean isDuplicate = true;
-
-            while (isDuplicate) {
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setInt(1, valueToCheck);
-                    ResultSet resultSet = statement.executeQuery();
-
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        if (count > 0) {
-                            // Generated ID already exists, regenerate a new ID
-                            valueToCheck = random_ID();
-                        } else {
-                            // Generated ID does not exist
-                            isDuplicate = false;
-                        }
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            System.out.println("Non-duplicate value: " + valueToCheck);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     /***
      * 获取IP并写入到数据库
@@ -111,6 +74,42 @@ public interface WriteToDatabases {
             connection.close();
 
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 判断数据库中是否有相同ID号，如果有则，重新产生新ID
+     */
+    default void duplicateID() {
+        try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {
+            String sql = "SELECT COUNT(*) FROM users WHERE ID = ?";
+
+            int valueToCheck = random_ID();
+            boolean isDuplicate = true;
+
+            while (isDuplicate) {
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setInt(1, valueToCheck);
+                    ResultSet resultSet = statement.executeQuery();
+
+                    if (resultSet.next()) {
+                        int count = resultSet.getInt(1);
+                        if (count > 0) {
+
+                            valueToCheck = random_ID();
+                        } else {
+
+                            isDuplicate = false;
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            System.out.println("Non-duplicate value: " + valueToCheck);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
