@@ -79,7 +79,10 @@ public interface WriteToDatabases {
             e.printStackTrace();
         }
     }
-    String value = null;
+
+    /**
+     * 通过查询后，最终生成的ID应存放在这里
+     */
     /**
      * 调用这个方法后就可以进行查询是否有重复ID
      * @param ID 这个ID是
@@ -91,10 +94,10 @@ public interface WriteToDatabases {
             String insertSql = "INSERT INTO ip_addresses (ID, ip_address) VALUES (?, ?)";
 
             boolean isDuplicate = true;
-
+            String value = null;
             do {
                 int valueToCheck = random_ID();
-
+                value = String.valueOf(valueToCheck);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setInt(1, valueToCheck);
                     ResultSet resultSet = statement.executeQuery();
@@ -102,7 +105,7 @@ public interface WriteToDatabases {
                     if (resultSet.next()) {
                         int count = resultSet.getInt(1);
                         if (count > 0) {
-                            out.println("有");
+
                             // 数据库中已存在与生成的ID相同的记录，重新生成一个新的ID
                         } else {
                             // 数据库中不存在与生成的ID相同的记录，结束循环，将ID和IP写入数据库
@@ -111,6 +114,7 @@ public interface WriteToDatabases {
                                 insertStatement.setInt(1, valueToCheck);
                                 insertStatement.setString(2, IP);
                                 insertStatement.executeUpdate();
+
                             }
                         }
                     }
@@ -123,6 +127,77 @@ public interface WriteToDatabases {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    String value = null;
+    default String get(String ID, String IP) {
+        try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {
+            String sql = "SELECT COUNT(*) FROM ip_addresses WHERE ID = ?";
+            String insertSql = "INSERT INTO ip_addresses (ID, ip_address) VALUES (?, ?)";
+
+            boolean isDuplicate = true;
+
+            String value;
+
+            if (ID != null) {
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, ID);
+                    ResultSet resultSet = statement.executeQuery();
+
+                    if (resultSet.next()) {
+                        int count = resultSet.getInt(1);
+                        if (count > 0) {
+                            // 数据库中已存在与给定ID相同的记录，重新生成一个新的ID
+                            do {
+                                int valueToCheck = random_ID();
+                                value = String.valueOf(valueToCheck);
+
+                                try (PreparedStatement checkStatement = connection.prepareStatement(sql)) {
+                                    checkStatement.setInt(1, valueToCheck);
+                                    ResultSet checkResultSet = checkStatement.executeQuery();
+
+                                    if (checkResultSet.next()) {
+                                        int checkCount = checkResultSet.getInt(1);
+                                        if (checkCount == 0) {
+                                            // 生成的新ID在数据库中不存在，退出循环
+                                            isDuplicate = false;
+                                            try (PreparedStatement insertStatement = connection.prepareStatement(insertSql)) {
+                                                insertStatement.setInt(1, valueToCheck);
+                                                insertStatement.setString(2, IP);
+                                                insertStatement.executeUpdate();
+                                            }
+                                        }
+                                    }
+
+                                    checkResultSet.close();
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            } while (isDuplicate);
+                        } else {
+                            // 数据库中不存在与给定ID相同的记录，直接写入
+                            value = ID;
+                            try (PreparedStatement insertStatement = connection.prepareStatement(insertSql)) {
+                                insertStatement.setString(1, ID);
+                                insertStatement.setString(2, IP);
+                                insertStatement.executeUpdate();
+                            }
+
+                        }
+                    }
+
+                    resultSet.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                // ID为空，直接退出
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 
 }

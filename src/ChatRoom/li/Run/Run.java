@@ -11,7 +11,8 @@ import ChatRoom.li.LoginScreen.LoginScreen;
 public class Run implements GetIP , WriteToDatabases {
 
     public static void main(String[] args){
-        //new LoginScreen();
+        new LoginScreen();
+        //new Run().get("123","192.168");
     }
 
 }
