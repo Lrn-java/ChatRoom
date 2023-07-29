@@ -202,15 +202,12 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
                 if (isTextField && isPasswordValid) {
                     //判断数据库中是否有相同IP
 
-                    duplicateID();
-
                     final String ID = String.valueOf(random_ID());
-
                     //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
                     getMassage(ID,jTextField.getText(),passwordT);
-                    //getIP();写入数据库，分别是ID号和用户名
-                    getIP(ID,getIPv4());
 
+                    //duplicateID();写入数据库，分别是ID号和用户名
+                    duplicateID(value,getIPv4());
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
                     //清除注册后文本框中所有信息
@@ -237,7 +234,7 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
                     }
                 }
 
-                if
+
                 super.mouseClicked(e);
             }
         });

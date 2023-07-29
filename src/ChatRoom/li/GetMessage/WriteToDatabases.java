@@ -3,6 +3,8 @@ package ChatRoom.li.GetMessage;
 import java.sql.*;
 import java.util.Random;
 
+import static java.lang.System.out;
+
 
 /**
  * 这个接口是用于数据写入数据库，不同的用法将不同的写入
@@ -12,8 +14,8 @@ import java.util.Random;
 public interface WriteToDatabases {
 
     String mysql_user = "root";
-    String mysql_password = "";
-    String databasesURL = "jdbc:mysql://:3306/user_info";
+    String mysql_password = "758206lrnandlxnA";
+    String databasesURL = "jdbc:mysql://192.168.1.7:3306/user_info";
 
     default void getMassage(String iD, String usermessage, String password1) {
         //写入到user_message数据库中，这个数据库中有一个表，用来保存用户名和密码这些基本信息
@@ -77,19 +79,22 @@ public interface WriteToDatabases {
             e.printStackTrace();
         }
     }
-
-
+    String value = null;
     /**
-     * 判断数据库中是否有相同ID号，如果有则，重新产生新ID
+     * 调用这个方法后就可以进行查询是否有重复ID
+     * @param ID 这个ID是
+     * @param IP
      */
-    default void duplicateID() {
+    default void duplicateID(String ID, String IP) {
         try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {
-            String sql = "SELECT COUNT(*) FROM users WHERE ID = ?";
+            String sql = "SELECT COUNT(*) FROM ip_addresses WHERE ID = ?";
+            String insertSql = "INSERT INTO ip_addresses (ID, ip_address) VALUES (?, ?)";
 
-            int valueToCheck = random_ID();
             boolean isDuplicate = true;
 
-            while (isDuplicate) {
+            do {
+                int valueToCheck = random_ID();
+
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setInt(1, valueToCheck);
                     ResultSet resultSet = statement.executeQuery();
@@ -97,20 +102,27 @@ public interface WriteToDatabases {
                     if (resultSet.next()) {
                         int count = resultSet.getInt(1);
                         if (count > 0) {
-
-                            valueToCheck = random_ID();
+                            out.println("有");
+                            // 数据库中已存在与生成的ID相同的记录，重新生成一个新的ID
                         } else {
-
+                            // 数据库中不存在与生成的ID相同的记录，结束循环，将ID和IP写入数据库
                             isDuplicate = false;
+                            try (PreparedStatement insertStatement = connection.prepareStatement(insertSql)) {
+                                insertStatement.setInt(1, valueToCheck);
+                                insertStatement.setString(2, IP);
+                                insertStatement.executeUpdate();
+                            }
                         }
                     }
+
+                    resultSet.close();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-            }
-            System.out.println("Non-duplicate value: " + valueToCheck);
+            } while (isDuplicate);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
