@@ -25,7 +25,7 @@ public interface WriteToDatabases {
             Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password);
             //数据库的连接
             String insert = "INSERT INTO `users` (ID, username,password) VALUES (?, ?, ?)";
-            ;
+
             PreparedStatement ps = connection.prepareStatement(insert);
             ps.setString(1, iD);
             ps.setString(2, usermessage);
@@ -36,7 +36,6 @@ public interface WriteToDatabases {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
