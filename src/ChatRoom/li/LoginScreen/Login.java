@@ -1,23 +1,18 @@
 package ChatRoom.li.LoginScreen;
 
 /**
- * 这个类是用于验证用户登录时向数据库请求数据的一个类
- * 创建时间：2023/8/2 14:03
+ * 这个接口用于判断数据库中用户名和密码
+ * 创建时间：2023/8/2 14:00
  * @author Lrn
  */
-public class Login {
-
-    public Login(){
-
-    }
+public interface Login {
 
     /**
-     * 这个方法将获取数据库中用户名和密码
+     * 这个方法用于获取数据库中的用户名和密码
      * @param user 用户名
      * @param password 密码
      */
-    public void getDatabasesMessage(String user,String password){
+    default void getDatabaseMessage(String user,String password){
 
     }
-
 }
