@@ -7,6 +7,18 @@ package ChatRoom.li.LoginScreen;
  */
 public interface Login {
 
+    String USER = "root";
+    String PASSWORD = "";
+    String URL = "";
+
+    /**
+     * 这个方法是用于连接数据库
+     */
+    default void connectDatabase(){
+
+    }
+
+
     /**
      * 这个方法用于获取数据库中的用户名和密码
      * @param user 用户名
