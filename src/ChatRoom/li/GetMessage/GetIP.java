@@ -4,6 +4,9 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+
+import static java.lang.System.out;
+
 /**
  * 这个接口是用来获取用户IP地址
  *
@@ -68,7 +71,7 @@ public interface GetIP {
                         String ipAddress = address.getHostAddress();
                         count++;
                         if (count == 2) {
-                            System.out.println(ipAddress);
+                            out.println(ipAddress);
                             break;
                         }
                     }
