@@ -23,7 +23,6 @@ public interface WriteToDatabases {
 
             //加载驱动
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             //创建连接
             Connection connection = DriverManager.getConnection(databasesURL,mysql_user,mysql_password);
             //数据库的连接
