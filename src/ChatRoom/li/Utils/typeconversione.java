@@ -1,7 +1,5 @@
-package ChatRoom.li.unit;
+package ChatRoom.li.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public  class typeconversione {
     public static byte[] tyconversione(String ... code){
