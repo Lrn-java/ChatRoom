@@ -8,7 +8,7 @@
 
 
 
-package ChatRoom.li.unit;
+package ChatRoom.li.Utils;
 import javax.crypto.*;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
@@ -17,7 +17,7 @@ import java.security.SecureRandom;
 
 public class EnAndDecode {
 
-    private String keyy = "key";
+    private final String keyy = "key";
 
     private  byte[] Type_conversioned(String code) {
         byte[] bytes;
