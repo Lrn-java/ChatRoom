@@ -1,11 +1,13 @@
 package ChatRoom.li.LoginScreen;
 
+import ChatRoom.li.GetMessage.GetIP;
+import ChatRoom.li.GetMessage.WriteToDatabases;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.Random;
 
 /**
@@ -13,7 +15,7 @@ import java.util.Random;
  * 创建时间：2023/7/27 22:00
  * @author Lrn
  */
-public class GuestModeWindow implements WriteToDatabases{
+public class GuestModeWindow implements WriteToDatabases, GetIP {
 
     /**
      * high：窗口高度
@@ -195,16 +197,20 @@ public class GuestModeWindow implements WriteToDatabases{
                 boolean isPasswordValid = passwordO.equals(passwordT) &&
                         passwordO.length() >= index[1] && passwordO.length() <= index[2];
 
-                //进行判断
+
+                //进行用户名密码是否符合规则，执行相对应的操作
                 if (isTextField && isPasswordValid) {
+                    //判断数据库中是否有相同IP
+
+                    final String ID = String.valueOf(random_ID());
+
+                    final String id = ID;
                     //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
-                    try {
-                        getMassage(String.valueOf(random_ID()),jTextField.getText(),passwordT);
-                    } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    getMassage(id,jTextField.getText(),passwordT);
+
+                    //duplicateID();写入数据库，分别是ID号和用户名
+                    get(id,getIPv4());
+
                     JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
 
                     //清除注册后文本框中所有信息
