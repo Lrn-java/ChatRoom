@@ -1,4 +1,4 @@
-package ChatRoom.li.LoginScreen;
+package ChatRoom.li.GetMessage;
 
 import ChatRoom.li.GetMessage.WriteToDatabases;
 
@@ -30,8 +30,6 @@ public interface Login  {
             String insert = "INSERT INTO `users` (ID, username,password) VALUES (?, ?, ?)";
             String select = "SELECT ID,IP FROM 'users' ";
             String sql = "SELECT COUNT(*) FROM ip_addresses WHERE ID = ?";
-
-
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);

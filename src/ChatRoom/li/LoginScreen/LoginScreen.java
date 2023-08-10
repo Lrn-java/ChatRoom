@@ -212,4 +212,21 @@ public class LoginScreen extends JFrame {
         container.add(QQ_Login);
     }
 
+
+    /**
+     * 这个是在登录界面下的，获取用户名
+     * @return 返回输入的用户名
+     */
+    public String getUserName(){
+        return jTextField.getText();
+    }
+
+    /**
+     * 获取密码
+     * @return  返回输入的密码
+     */
+    public String getUserPassword(){
+        char[] password = jPasswordField.getPassword();
+        return String.valueOf(password);
+    }
 }
