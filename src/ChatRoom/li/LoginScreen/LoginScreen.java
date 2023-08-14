@@ -244,10 +244,6 @@ public class LoginScreen extends JFrame implements SelectDatabase {
     /**
      * 这个方法是用来判断用户名输入的值是否在数据库中
      */
-    public void eq(){
-        checkCredentials(getUserName(),getUserPassword());
-    }
-
     @Override
     public boolean checkCredentials(String username, String password) {
         try {
