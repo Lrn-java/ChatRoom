@@ -211,7 +211,7 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
                     //duplicateID();写入数据库，分别是ID号和用户名
                     get(id,getIPv4());
 
-                    JOptionPane.showMessageDialog(null,"注册成功!","",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"您的ID为:"+ID+"请牢记!","注册成功!",JOptionPane.WARNING_MESSAGE);
 
                     //清除注册后文本框中所有信息
                     jPasswordFieldOne.setText("");

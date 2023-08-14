@@ -1,16 +1,21 @@
 package ChatRoom.li.LoginScreen;
 
+import ChatRoom.li.GetMessage.SelectDatabase;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 这个类是定义登录界面属性
  * 创建时间：2023/7/25 17:30
  * @author Lrn
  */
-public class LoginScreen extends JFrame {
+public class LoginScreen extends JFrame implements SelectDatabase {
     /**
      * 我们需要对不同设备的屏幕尺寸来定义登录界面的坐标，因此有以下重要成员变量
      * high：窗口高度
@@ -194,6 +199,12 @@ public class LoginScreen extends JFrame {
 
         QQ_Login.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseClicked(MouseEvent e) {
+                checkCredentials(getUserName(),getUserPassword());
+                super.mouseClicked(e);
+            }
+
+            @Override
             public void mouseEntered(MouseEvent e) {
                 QQ_Login.setFont(new Font("微软雅黑",Font.PLAIN,13));
                 super.mouseEntered(e);
@@ -212,10 +223,9 @@ public class LoginScreen extends JFrame {
         container.add(QQ_Login);
     }
 
-
     /**
      * 这个是在登录界面下的，获取用户名
-     * @return 返回输入的用户名
+     * @return 返回输入的用户名w
      */
     public String getUserName(){
         return jTextField.getText();
@@ -228,5 +238,48 @@ public class LoginScreen extends JFrame {
     public String getUserPassword(){
         char[] password = jPasswordField.getPassword();
         return String.valueOf(password);
+    }
+
+
+    /**
+     * 这个方法是用来判断用户名输入的值是否在数据库中
+     */
+    public void eq(){
+        checkCredentials(getUserName(),getUserPassword());
+    }
+
+    @Override
+    public boolean checkCredentials(String username, String password) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password);
+
+            String query = "SELECT id, password FROM users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // 账号存在且密码匹配
+            if (resultSet.next()) {
+                String dbPassword = resultSet.getString("password");
+
+                if (dbPassword.equals(password)) {
+                    System.out.println("用户名和密码匹配");
+                    return true;
+                }
+            }
+
+            // 账号不存在或密码不匹配
+            JOptionPane.showMessageDialog(null, "账号密码不正确，请检查后输入");
+            jPasswordField.setText("");
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
     }
 }
