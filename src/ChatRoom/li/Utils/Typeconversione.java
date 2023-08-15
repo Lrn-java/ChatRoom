@@ -1,7 +1,11 @@
 package ChatRoom.li.Utils;
 
 
-public  class typeconversione {
+/**
+ * @author Lbh
+ */
+public  class Typeconversione {
+
     public static byte[] tyconversione(String ... code){
         //传进来会是个string的arrlist
         byte[] bytes = new byte[0];
@@ -11,4 +15,5 @@ public  class typeconversione {
         }
         return bytes;
     }
+
 }

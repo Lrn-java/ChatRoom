@@ -2,6 +2,7 @@ package ChatRoom.li.GetMessage;
 
 import ChatRoom.li.LoginScreen.LoginScreen;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,8 +15,8 @@ import java.sql.SQLException;
 public interface SelectDatabase {
 
     String mysql_user = "root";
-    String mysql_password = "";
-    String databasesURL = "jdbc:mysql://:3306/user_info";
+    String mysql_password = "758206lrnandlxnA";
+    String databasesURL = "jdbc:mysql://192.168.1.7:3306/user_info";
 
     /**
      * 查询数据库中的数据
@@ -42,7 +43,7 @@ public interface SelectDatabase {
             }
 
             // 用户不存在或密码不匹配
-            System.out.println("用户名和密码不匹配");
+            JOptionPane.showMessageDialog(null, "账号密码不正确，请检查后输入");
             resultSet.close();
             statement.close();
             connection.close();

@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
- *
+ * @author Lbh
  */
 public class EnAndDecode {
 
@@ -94,6 +94,5 @@ public class EnAndDecode {
     public byte[] decode(byte[] content) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         byte[] kbytes = Type_conversioned(this.keyy);
         return decodem(content, kbytes);
-
     }
 }

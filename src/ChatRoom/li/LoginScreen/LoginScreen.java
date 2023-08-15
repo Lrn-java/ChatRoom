@@ -1,21 +1,21 @@
 package ChatRoom.li.LoginScreen;
 
+import ChatRoom.li.GetMessage.GetIP;
 import ChatRoom.li.GetMessage.SelectDatabase;
+import ChatRoom.li.MainInterface.Interface;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * 这个类是定义登录界面属性
  * 创建时间：2023/7/25 17:30
  * @author Lrn
  */
-public class LoginScreen extends JFrame implements SelectDatabase {
+public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
     /**
      * 我们需要对不同设备的屏幕尺寸来定义登录界面的坐标，因此有以下重要成员变量
      * high：窗口高度
@@ -23,8 +23,8 @@ public class LoginScreen extends JFrame implements SelectDatabase {
      * getScreenWide：获取屏幕宽度
      * getScreenHigh：获取屏幕高度
      */
-    protected   int wide = 695;
-    protected   int high = 530;
+    protected int wide = 695;
+    protected int high = 530;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected final int getScreenWide = screenSize.width;
     protected final int getScreenHigh = screenSize.height;
@@ -33,14 +33,13 @@ public class LoginScreen extends JFrame implements SelectDatabase {
     private final Container container = getContentPane();
     private final JButton VisitorLogin = new JButton();
     private final JButton QQ_Login = new JButton();
-
     /**
      * 登录界面属性
      */
-    public LoginScreen(){
+    public LoginScreen() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(wide,high);
-        setLocation(getsX(),getsY());
+        setSize(wide, high);
+        setLocation(getsX(), getsY());
         setIconImage(null);
         setBackground(new Color(0xFFFFFF));
         setLayout(null);
@@ -48,9 +47,9 @@ public class LoginScreen extends JFrame implements SelectDatabase {
         //添加登录界面背景
         ImageIcon imageIcon = new ImageIcon("src\\ChatRoom\\li\\Material\\登录界面素材.png");
         JLabel jLabel = new JLabel(imageIcon);
-        jLabel.setBounds(0,0,400,530);
+        jLabel.setBounds(0, 0, 400, 530);
         Integer minValue = Integer.MIN_VALUE;
-        getLayeredPane().add(jLabel,minValue);
+        getLayeredPane().add(jLabel, minValue);
         JPanel jPanel = (JPanel) getContentPane();
 
         //添加组件
@@ -67,9 +66,9 @@ public class LoginScreen extends JFrame implements SelectDatabase {
      *
      * @return 窗口水平位置
      */
-    protected int getsX(){
+    protected int getsX() {
         //通过屏幕宽度减去窗口宽度并除以2，得到水平位置
-        return (this.getScreenWide - wide ) / 2;
+        return (this.getScreenWide - wide) / 2;
     }
 
     /**
@@ -77,7 +76,7 @@ public class LoginScreen extends JFrame implements SelectDatabase {
      *
      * @return 窗口垂直位置
      */
-    protected int getsY(){
+    protected int getsY() {
         //通过屏幕高度减去窗口高度并除以2，得到垂直位置
         return (this.getScreenHigh - high) / 2;
     }
@@ -85,20 +84,20 @@ public class LoginScreen extends JFrame implements SelectDatabase {
     /**
      * 设置文本框属性
      */
-    protected void setTextField(){
+    protected void setTextField() {
         //设置下边框可见
-        Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK);
+        Border border = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
         final String text = "        QQ账号/游客账号";
 
         jTextField.setText(text);
-        jTextField.setFont(new Font("微软雅黑",Font.PLAIN,15));
-        jTextField.setBounds(440,250,200,30);
+        jTextField.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+        jTextField.setBounds(440, 250, 200, 30);
         jTextField.setOpaque(false);
-        jTextField.setForeground(new Color(0,0,0,128));
+        jTextField.setForeground(new Color(0, 0, 0, 128));
         jTextField.setBorder(border);
 
-        jPasswordField.setFont(new Font("微软雅黑",Font.PLAIN,15));
-        jPasswordField.setBounds(440,300,200,30);
+        jPasswordField.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+        jPasswordField.setBounds(440, 300, 200, 30);
         jPasswordField.setBorder(border);
 
         //添加鼠标监听效果
@@ -110,11 +109,11 @@ public class LoginScreen extends JFrame implements SelectDatabase {
             }
 
             @Override
-            public void mouseExited(MouseEvent e){
-                if(jTextField.getText().equals("")){
+            public void mouseExited(MouseEvent e) {
+                if (jTextField.getText().equals("")) {
                     jTextField.setText(text);
                     jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0,0,0,128));
+                    jTextField.setForeground(new Color(0, 0, 0, 128));
                 }
                 super.mouseExited(e);
             }
@@ -124,9 +123,9 @@ public class LoginScreen extends JFrame implements SelectDatabase {
         jTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(jTextField.getText().equals(text)){
+                if (jTextField.getText().equals(text)) {
                     jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0,0,0,128));
+                    jTextField.setForeground(new Color(0, 0, 0, 128));
                 }
                 jTextField.setOpaque(false);
                 jTextField.setForeground(new Color(0x000000));
@@ -136,9 +135,9 @@ public class LoginScreen extends JFrame implements SelectDatabase {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(jTextField.getText().equals(text)){
+                if (jTextField.getText().equals(text)) {
                     jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0,0,0,128));
+                    jTextField.setForeground(new Color(0, 0, 0, 128));
 
                 }
                 jTextField.setOpaque(false);
@@ -148,9 +147,9 @@ public class LoginScreen extends JFrame implements SelectDatabase {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if(jTextField.getText().equals(text)){
+                if (jTextField.getText().equals(text)) {
                     jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0,0,0,128));
+                    jTextField.setForeground(new Color(0, 0, 0, 128));
                 }
                 jTextField.setOpaque(false);
                 jTextField.setForeground(new Color(0x000001));
@@ -164,34 +163,40 @@ public class LoginScreen extends JFrame implements SelectDatabase {
     /**
      * 设置按钮属性
      */
-    protected void setButton(){
+    protected void setButton() {
         VisitorLogin.setText("游客登录");
-        VisitorLogin.setBounds(553,340,88,30);
+        VisitorLogin.setBounds(553, 340, 88, 30);
         VisitorLogin.setBackground(new Color(0x328FFA));
         VisitorLogin.setForeground(new Color(0xFFFFFF));
 
         QQ_Login.setText("登 录");
-        QQ_Login.setBounds(440,340,88,30);
+        QQ_Login.setBounds(440, 340, 88, 30);
         QQ_Login.setBackground(new Color(0x328FFA));
         QQ_Login.setForeground(new Color(0xFFFFFF));
 
         VisitorLogin.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
-                new GuestModeWindow();
+                 /*
+                 判断用户网络情况
+                 */
+                if (isNetworkAvailable()) {
+                    new GuestModeWindow();
+                } else {
+                    JOptionPane.showMessageDialog(null, "没有网络连接！");
+                }
                 super.mouseClicked(e);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                VisitorLogin.setFont(new Font("微软雅黑",Font.PLAIN,13));
+                VisitorLogin.setFont(new Font("微软雅黑", Font.PLAIN, 13));
                 super.mouseEntered(e);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                VisitorLogin.setFont(new Font("Dialog",Font.PLAIN,12));
+                VisitorLogin.setFont(new Font("Dialog", Font.PLAIN, 12));
                 VisitorLogin.setText("游客登录");
                 super.mouseExited(e);
             }
@@ -200,19 +205,26 @@ public class LoginScreen extends JFrame implements SelectDatabase {
         QQ_Login.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                checkCredentials(getUserName(),getUserPassword());
+                /*
+                 判断用户网络情况
+                 */
+                if (isNetworkAvailable()) {
+                    new Interface();
+                } else {
+                    JOptionPane.showMessageDialog(null, "没有网络连接！");
+                }
                 super.mouseClicked(e);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                QQ_Login.setFont(new Font("微软雅黑",Font.PLAIN,13));
+                QQ_Login.setFont(new Font("微软雅黑", Font.PLAIN, 13));
                 super.mouseEntered(e);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                QQ_Login.setFont(new Font("Dialog",Font.PLAIN,12));
+                QQ_Login.setFont(new Font("Dialog", Font.PLAIN, 12));
                 QQ_Login.setText("登 录");
                 super.mouseExited(e);
             }
@@ -225,17 +237,19 @@ public class LoginScreen extends JFrame implements SelectDatabase {
 
     /**
      * 这个是在登录界面下的，获取用户名
+     *
      * @return 返回输入的用户名w
      */
-    public String getUserName(){
+    public String getUserName() {
         return jTextField.getText();
     }
 
     /**
      * 获取密码
-     * @return  返回输入的密码
+     *
+     * @return 返回输入的密码
      */
-    public String getUserPassword(){
+    public String getUserPassword() {
         char[] password = jPasswordField.getPassword();
         return String.valueOf(password);
     }
@@ -259,7 +273,6 @@ public class LoginScreen extends JFrame implements SelectDatabase {
             // 账号存在且密码匹配
             if (resultSet.next()) {
                 String dbPassword = resultSet.getString("password");
-
                 if (dbPassword.equals(password)) {
                     System.out.println("用户名和密码匹配");
                     return true;
