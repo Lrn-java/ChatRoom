@@ -101,7 +101,7 @@ public interface GetIP {
             connection.disconnect();
             return responseCode == 200;
         } catch (IOException e) {
-            // 出现异常，网络不可用
+
         }
         return false;
     }
