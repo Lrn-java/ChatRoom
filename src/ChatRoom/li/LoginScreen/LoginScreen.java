@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
+import static java.lang.System.out;
+
 /**
  * 这个类是定义登录界面属性
  * 创建时间：2023/7/25 17:30
@@ -209,7 +211,7 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
                  判断用户网络情况
                  */
                 if (isNetworkAvailable()) {
-                    new Interface();
+                    checkCredentials(getUserName(),getUserPassword());
                 } else {
                     JOptionPane.showMessageDialog(null, "没有网络连接！");
                 }
@@ -274,11 +276,11 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
             if (resultSet.next()) {
                 String dbPassword = resultSet.getString("password");
                 if (dbPassword.equals(password)) {
-                    System.out.println("用户名和密码匹配");
+                    //进入主界面
+                    Interface screen = Interface.anInterface();
                     return true;
                 }
             }
-
             // 账号不存在或密码不匹配
             JOptionPane.showMessageDialog(null, "账号密码不正确，请检查后输入");
             jPasswordField.setText("");
