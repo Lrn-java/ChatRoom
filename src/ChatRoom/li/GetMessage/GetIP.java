@@ -1,9 +1,10 @@
 package ChatRoom.li.GetMessage;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import javax.swing.*;
+import java.io.IOException;
+import java.net.*;
 import java.util.Enumeration;
+
 
 import static java.lang.System.out;
 
@@ -84,5 +85,24 @@ public interface GetIP {
             e.printStackTrace();
         }
     }
-}
 
+    /**
+     * 解析网络，判断用户网络连接情况
+     * @return 返回解析网址后的结果
+     */
+    default boolean isNetworkAvailable() {
+        try {
+            // 检查是否能够连接到互联网
+            URL url = new URL("https://www.baidu.com/");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            connection.disconnect();
+            return responseCode == 200;
+        } catch (IOException e) {
+            // 出现异常，网络不可用
+        }
+        return false;
+    }
+}
