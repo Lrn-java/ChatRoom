@@ -210,11 +210,12 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
                 /*
                  判断用户网络情况
                  */
-                if (isNetworkAvailable()) {
+                /*if (isNetworkAvailable()) {
                     checkCredentials(getUserName(),getUserPassword());
                 } else {
                     JOptionPane.showMessageDialog(null, "没有网络连接！");
-                }
+                }*/
+                new Interface();
                 super.mouseClicked(e);
             }
 
@@ -277,7 +278,8 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
                 String dbPassword = resultSet.getString("password");
                 if (dbPassword.equals(password)) {
                     //进入主界面
-                    Interface screen = Interface.anInterface();
+                    new Interface();
+                    setVisible(false);
                     return true;
                 }
             }

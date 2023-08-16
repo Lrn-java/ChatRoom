@@ -9,16 +9,85 @@ import java.awt.*;
  */
 public class Interface extends JFrame {
 
-    Container container = getContentPane();
-    private Interface(){
+    protected int wide = 910;
+    protected int high = 640;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected final int getScreenWide = screenSize.width;
+    protected final int getScreenHigh = screenSize.height;
 
+    private final Container container = getContentPane();
+    private final JPanel PersonalInformationPanel = new JPanel();
+    private final JPanel ContactPanel = new JPanel();
+    private final JPanel ChatPanel = new JPanel();
+    public Interface(){
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(wide, high);
+        setLocation(getsX(), getsY());
+        setIconImage(null);
+        setBackground(new Color(0xFFFFFF));
+        setLayout(new LayoutManager() {
+            @Override
+            public void addLayoutComponent(String name, Component comp) {
+
+            }
+
+            @Override
+            public void removeLayoutComponent(Component comp) {
+
+            }
+
+            @Override
+            public Dimension preferredLayoutSize(Container parent) {
+                // 指定首选尺寸的逻辑
+                // 根据组件内容或布局要求计算首选宽度和高度，并返回一个 Dimension 对象
+                int preferredWidth = 55;
+                int preferredHeight = 640;
+                return new Dimension(preferredWidth, preferredHeight);
+            }
+
+            @Override
+            public Dimension minimumLayoutSize(Container parent) {
+                // 指定最小尺寸的逻辑
+                // 根据组件内容或布局要求计算最小宽度和高度，并返回一个 Dimension 对象
+                int minimumWidth = 55;
+                int minimumHeight = 640;
+                return new Dimension(minimumWidth, minimumHeight);
+            }
+
+            @Override
+            public void layoutContainer(Container parent) {
+                PersonalInformationPanel.setBounds(0, 0, 55, parent.getHeight());
+                ContactPanel.setBounds(55, 0, parent.getWidth() - 645, parent.getHeight());
+            }
+        });
+
+        PersonalInformationPanel.setBackground(new Color(0x2E2E2E));
+        ContactPanel.setBackground(new Color(0xE6E5E5));
+
+        add(PersonalInformationPanel);
+        add(ContactPanel);
+
+        setVisible(true);
     }
 
     /**
-     * 把主界面返回出去
-     * @return 返回主界面
+     * 计算窗口水平位置
+     *
+     * @return 窗口水平位置
      */
-    public static Interface anInterface(){
-        return new Interface();
+    protected int getsX() {
+        //通过屏幕宽度减去窗口宽度并除以2，得到水平位置
+        return (this.getScreenWide - wide) / 2;
     }
+
+    /**
+     * 计算窗口垂直位置
+     *
+     * @return 窗口垂直位置
+     */
+    protected int getsY() {
+        //通过屏幕高度减去窗口高度并除以2，得到垂直位置
+        return (this.getScreenHigh - high) / 2;
+    }
+
 }
