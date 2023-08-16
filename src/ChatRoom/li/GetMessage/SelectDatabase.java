@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public interface SelectDatabase {
 
     String mysql_user = "root";
-    String mysql_password = "758206lrnandlxnA";
-    String databasesURL = "jdbc:mysql://192.168.1.7:3306/user_info";
+    String mysql_password = "";
+    String databasesURL = "jdbc:mysql://:3306/user_info";
 
     /**
      * 查询数据库中的数据

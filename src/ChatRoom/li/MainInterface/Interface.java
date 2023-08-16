@@ -1,7 +1,11 @@
 package ChatRoom.li.MainInterface;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * 创建界面类，这个界面是主界面的布局标签
@@ -19,12 +23,14 @@ public class Interface extends JFrame {
     private final JPanel PersonalInformationPanel = new JPanel();
     private final JPanel ContactPanel = new JPanel();
     private final JPanel ChatPanel = new JPanel();
+    private final JPanel SearchPanel = new JPanel();
     public Interface(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(wide, high);
         setLocation(getsX(), getsY());
         setIconImage(null);
         setBackground(new Color(0xFFFFFF));
+
         setLayout(new LayoutManager() {
             @Override
             public void addLayoutComponent(String name, Component comp) {
@@ -40,8 +46,8 @@ public class Interface extends JFrame {
             public Dimension preferredLayoutSize(Container parent) {
                 // 指定首选尺寸的逻辑
                 // 根据组件内容或布局要求计算首选宽度和高度，并返回一个 Dimension 对象
-                int preferredWidth = 55;
-                int preferredHeight = 640;
+                int preferredWidth = 700;
+                int preferredHeight = 500;
                 return new Dimension(preferredWidth, preferredHeight);
             }
 
@@ -49,24 +55,48 @@ public class Interface extends JFrame {
             public Dimension minimumLayoutSize(Container parent) {
                 // 指定最小尺寸的逻辑
                 // 根据组件内容或布局要求计算最小宽度和高度，并返回一个 Dimension 对象
-                int minimumWidth = 55;
-                int minimumHeight = 640;
+                int minimumWidth = 700;
+                int minimumHeight = 500;
                 return new Dimension(minimumWidth, minimumHeight);
             }
 
             @Override
             public void layoutContainer(Container parent) {
                 PersonalInformationPanel.setBounds(0, 0, 55, parent.getHeight());
-                ContactPanel.setBounds(55, 0, parent.getWidth() - 645, parent.getHeight());
+                SearchPanel.setBounds(55,0,250,50);
+                ContactPanel.setBounds(55, 0, 250, parent.getHeight());
+                ChatPanel.setBounds(60,0,parent.getWidth(), parent.getHeight());
             }
         });
 
+        Color color = new Color(0,0,0,40);
+        Border black = new MatteBorder(0,0,0,1,color);
+
+        /*
+         * 个人信息面板
+         */
         PersonalInformationPanel.setBackground(new Color(0x2E2E2E));
-        ContactPanel.setBackground(new Color(0xE6E5E5));
+        /*
+         * 搜索面板
+         */
+        SearchPanel.setBackground(new Color(0xF7F7F7));
+        SearchPanel.setBorder(black);
+        /*
+         * 联系人面板
+         */
+        ContactPanel.setBackground(new Color(0xEBE8E7));
+        ContactPanel.setBorder(black);
+        /*
+         * 聊天面板
+         */
+        ChatPanel.setBackground(new Color(0xF5F5F5));
 
         add(PersonalInformationPanel);
+        add(SearchPanel);
         add(ContactPanel);
+        add(ChatPanel);
 
+        setMinimumSize(new Dimension(796,503));
         setVisible(true);
     }
 
@@ -89,5 +119,12 @@ public class Interface extends JFrame {
         //通过屏幕高度减去窗口高度并除以2，得到垂直位置
         return (this.getScreenHigh - high) / 2;
     }
+
+    JTextField searchBox = null;
+
+    private void setSearchBox(){
+        searchBox.setText("搜索");
+    }
+
 
 }
