@@ -210,12 +210,12 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
                 /*
                  判断用户网络情况
                  */
-                /*if (isNetworkAvailable()) {
+                if (isNetworkAvailable()) {
                     checkCredentials(getUserName(),getUserPassword());
                 } else {
                     JOptionPane.showMessageDialog(null, "没有网络连接！");
-                }*/
-                new Interface();
+                }
+
                 super.mouseClicked(e);
             }
 
