@@ -14,8 +14,8 @@ import static java.lang.System.out;
 public interface WriteToDatabases {
 
     String mysql_user = "root";
-    String mysql_password = "";
-    String databasesURL = "jdbc:mysql://:3306/user_info";
+    String mysql_password = "758206lrnandlxnA";
+    String databasesURL = "jdbc:mysql://192.168.0.5:3306/user_info";
 
     default void getMassage(String iD, String usermessage, String password1) {
         //写入到user_message数据库中，这个数据库中有一个表，用来保存用户名和密码这些基本信息
@@ -83,7 +83,7 @@ public interface WriteToDatabases {
     /**
      * 调用这个方法后就可以进行查询是否有重复ID并且将ID写入数据库
      * @param ID 这个ID是用户的身份证
-     * @param IP 这个用户的IP地址
+     * @param IP 用户的IP地址
      */
     default void get(String ID, String IP) {
         try (Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password)) {

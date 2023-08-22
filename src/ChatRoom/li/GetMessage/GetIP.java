@@ -31,7 +31,7 @@ public interface GetIP {
                     while (addresses.hasMoreElements()) {
                         InetAddress address = addresses.nextElement();
                         if (address.getHostAddress().contains(":")) {
-                            continue; // Skip IPv6 addresses
+                            continue;
                         }
                         String ipAddress = address.getHostAddress();
                         count++;
@@ -48,7 +48,6 @@ public interface GetIP {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-
         return resultBuilder.toString();
     }
 

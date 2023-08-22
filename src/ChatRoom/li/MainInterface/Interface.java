@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 创建界面类，这个界面是主界面的布局标签
@@ -95,6 +97,7 @@ public class Interface extends JFrame {
         add(ChatPanel);
 
         setMinimumSize(new Dimension(796,503));
+        setSearchBox();
         setVisible(true);
     }
 
@@ -118,10 +121,26 @@ public class Interface extends JFrame {
         return (this.getScreenHigh - high) / 2;
     }
 
-    JTextField searchBox = null;
+    JTextField searchBox = new JTextField("🔍搜索");
 
     private void setSearchBox(){
-        searchBox.setText("搜索");
+        searchBox.setBounds(10,10,60,30);
+        searchBox.setBackground(new Color(0xF5F5F5F5, true));
+
+        searchBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                searchBox.setBackground(new Color(0xFFFFFF));
+                searchBox.setText("");
+                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+            }
+        });
+        SearchPanel.add(searchBox);
     }
 
 
