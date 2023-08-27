@@ -125,38 +125,23 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
         jTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (jTextField.getText().equals(text)) {
-                    jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0, 0, 0, 128));
+                if(jTextField.getText().equals(text)){
+                    jTextField.setText("");
                 }
-                jTextField.setOpaque(false);
-                jTextField.setForeground(new Color(0x000000));
-
-
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (jTextField.getText().equals(text)) {
-                    jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0, 0, 0, 128));
-
-                }
-                jTextField.setOpaque(false);
-                jTextField.setForeground(new Color(0x000002));
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if (jTextField.getText().equals(text)) {
-                    jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0, 0, 0, 128));
-                }
-                jTextField.setOpaque(false);
-                jTextField.setForeground(new Color(0x000001));
+
             }
+
         });
+
         //添加组件
         container.add(jTextField);
         container.add(jPasswordField);

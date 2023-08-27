@@ -14,8 +14,8 @@ import static java.lang.System.out;
 public interface WriteToDatabases {
 
     String mysql_user = "root";
-    String mysql_password = "758206lrnandlxnA";
-    String databasesURL = "jdbc:mysql://10.201.11.37:3306/user_info";
+    String mysql_password = "";
+    String databasesURL = "jdbc:mysql://:3306/user_info";
 
     default void getMassage(String iD, String usermessage, String password1) {
         //写入到user_message数据库中，这个数据库中有一个表，用来保存用户名和密码这些基本信息
