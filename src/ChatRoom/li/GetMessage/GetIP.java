@@ -18,7 +18,7 @@ public interface GetIP {
     /**
      * 获取IPv4地址
      */
-    default String getIPv4() {
+    static String getIPv4() {
         StringBuilder resultBuilder = new StringBuilder();
 
         try {

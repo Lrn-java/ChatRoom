@@ -102,11 +102,13 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
         jPasswordField.setBounds(440, 300, 200, 30);
         jPasswordField.setBorder(border);
 
-        //添加鼠标监听效果
+        //用户名框添加鼠标监听效果
         jTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 jTextField.setText("");
+                jTextField.setOpaque(false);
+                jTextField.setForeground(new Color(0,0,0, 255));
                 super.mouseClicked(e);
             }
 
@@ -122,12 +124,22 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
 
         });
 
+        //用户名框添加键盘监听效果
         jTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 if(jTextField.getText().equals(text)){
                     jTextField.setText("");
+                    jTextField.setFont(new Font("微软雅黑",Font.PLAIN,15));
+                    jTextField.setOpaque(false);
+                    jTextField.setForeground(new Color(0, 0, 0, 255));
                 }
+
+                if(jTextField.getText() == null){
+                    jTextField.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+                    jTextField.setText("");
+                }
+
             }
 
             @Override
@@ -200,7 +212,6 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
                 } else {
                     JOptionPane.showMessageDialog(null, "没有网络连接！");
                 }
-
                 super.mouseClicked(e);
             }
 

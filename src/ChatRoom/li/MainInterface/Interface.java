@@ -124,7 +124,8 @@ public class Interface extends JFrame {
     JTextField searchBox = new JTextField("🔍搜索");
 
     private void setSearchBox(){
-        searchBox.setBounds(10,10,60,30);
+        searchBox.setLayout(null);
+        searchBox.setBounds(5,5,100,20);
         searchBox.setBackground(new Color(0xF5F5F5F5, true));
 
         searchBox.addMouseListener(new MouseAdapter() {
@@ -142,6 +143,4 @@ public class Interface extends JFrame {
         });
         SearchPanel.add(searchBox);
     }
-
-
 }

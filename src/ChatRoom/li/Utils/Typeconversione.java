@@ -11,7 +11,6 @@ public  class Typeconversione {
         byte[] bytes = new byte[0];
         for (String s : code) {
             bytes = s.getBytes();
-
         }
         return bytes;
     }

@@ -12,16 +12,19 @@ import java.sql.SQLException;
 /**
  * @author Lrn
  */
-public interface SelectDatabase {
+public interface SelectDatabase extends GetIP{
 
     String mysql_user = "root";
     String mysql_password = "";
-    String databasesURL = "jdbc:mysql://:3306/user_info";
+
+    String databasesURL = "jdbc:mysql://"+ GetIP.getIPv4()+":3306/user_info";
 
     /**
      * 查询数据库中的数据
      */
     default boolean checkCredentials(String username, String password) {
+
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(databasesURL, mysql_user, mysql_password);
@@ -35,7 +38,6 @@ public interface SelectDatabase {
             // 用户存在且密码匹配
             if (resultSet.next()) {
                 String dbPassword = resultSet.getString("password");
-
                 if (dbPassword.equals(password)) {
                     System.out.println("用户名和密码匹配");
                     return true;

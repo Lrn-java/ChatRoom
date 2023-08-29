@@ -3,19 +3,17 @@ package ChatRoom.li.GetMessage;
 import java.sql.*;
 import java.util.Random;
 
-import static java.lang.System.out;
-
 
 /**
  * 这个接口是用于数据写入数据库，不同的用法将不同的写入
  *
  * @author Lrn
  */
-public interface WriteToDatabases {
+public interface WriteToDatabases extends GetIP{
 
     String mysql_user = "root";
     String mysql_password = "";
-    String databasesURL = "jdbc:mysql://:3306/user_info";
+    String databasesURL = "jdbc:mysql://"+GetIP.getIPv4()+":3306/user_info";
 
     default void getMassage(String iD, String usermessage, String password1) {
         //写入到user_message数据库中，这个数据库中有一个表，用来保存用户名和密码这些基本信息
@@ -47,6 +45,7 @@ public interface WriteToDatabases {
     default int random_ID() {
         return 100000 + new Random().nextInt(900000);
     }
+
 
 
     /***
@@ -123,7 +122,6 @@ public interface WriteToDatabases {
                                             }
                                         }
                                     }
-
                                     checkResultSet.close();
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
@@ -146,7 +144,7 @@ public interface WriteToDatabases {
                     throw new RuntimeException(e);
                 }
             } else {
-                // ID为空，直接退出
+
 
             }
         } catch (SQLException e) {
