@@ -12,7 +12,7 @@ import java.util.Random;
 public interface WriteToDatabases extends GetIP{
 
     String mysql_user = "root";
-    String mysql_password = "";
+    String mysql_password = "758206lrnandlxnA";
     String databasesURL = "jdbc:mysql://"+GetIP.getIPv4()+":3306/user_info";
 
     default void getMassage(String iD, String usermessage, String password1) {

@@ -2,13 +2,17 @@ package ChatRoom.li.LoginScreen;
 
 import ChatRoom.li.GetMessage.GetIP;
 import ChatRoom.li.GetMessage.WriteToDatabases;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Random;
+
+import static java.awt.event.KeyEvent.VK_COMPOSE;
+import static java.awt.event.KeyEvent.VK_ENTER;
+import static java.lang.System.out;
 
 /**
  * 这个类游客登录窗口
@@ -82,6 +86,7 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
 
         setTextField();
         setEnrollButton();
+        setEnrollKey();
 
 
         jFrame.setResizable(false);
@@ -182,63 +187,133 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
         enroll.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //获取用户信息
-                char[] password1 = jPasswordFieldOne.getPassword();
-                char[] password2 = jPasswordFieldTwo.getPassword();
-
-                String passwordO = String.valueOf(password1);
-                String passwordT = String.valueOf(password2);
-
-                int len = jTextField.getText().length();
-
-                //判断注册时用户名长度是否符合规则
-                boolean isTextField = len > index[0] && len <= index[1];
-                //判断注册时密码长度是否符合规则
-                boolean isPasswordValid = passwordO.equals(passwordT) &&
-                        passwordO.length() >= index[1] && passwordO.length() <= index[2];
-
-
-                //进行用户名密码是否符合规则，执行相对应的操作
-                if (isTextField && isPasswordValid) {
-                    //判断数据库中是否有相同IP
-
-                    final String ID = String.valueOf(random_ID());
-
-                    final String id = ID;
-                    //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
-                    getMassage(id,jTextField.getText(),passwordT);
-
-                    //duplicateID();写入数据库，分别是ID号和用户名
-                    get(id, GetIP.getIPv4());
-
-                    JOptionPane.showMessageDialog(null,"您的账号为:"+ID+"请牢记!","注册成功!",JOptionPane.WARNING_MESSAGE);
-
-                    //清除注册后文本框中所有信息
-                    jPasswordFieldOne.setText("");
-                    jPasswordFieldOne.setText("");
-                    jFrame.setVisible(false);   //隐藏窗口
-                }else{
-                    try {
-                        String errorMessage = "用户信息无效！\n" +
-                                "用户名长度必须为 1-3 个字符,密码长度必须介于 6 到 16 个字符之间,两次密码必须一致!";
-                        //若注册失败，则重新刷新默认用户名
-                        int count = 5;
-                        StringBuilder user = new StringBuilder();
-                        for (int i = 0; i < count; i++) {
-                            user.append(generateSimpleChineseChar());
-                        }
-                        jTextField.setText(String.valueOf(user));
-                        //清空注册框中的密码信息
-                        jPasswordFieldOne.setText("");
-                        jPasswordFieldTwo.setText("");
-                        throw new UserNameMessageException(errorMessage);
-                    } catch (UserNameMessageException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+                isGetInformation();
                 super.mouseClicked(e);
             }
         });
+    }
+
+    /**
+     * 在注册界面中按回车按钮后即可进行与点击立即注册按钮相同的操作
+     */
+    private void setEnrollKey(){
+        jTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == VK_ENTER){
+                    isGetInformation();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+        jPasswordFieldTwo.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == VK_ENTER){
+                    isGetInformation();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+        enroll.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == VK_ENTER){
+                    isGetInformation();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+
+        });
+    }
+
+    /**
+     * 这个方法是用来获取用户名注册信息时的逻辑
+     */
+    private void isGetInformation(){
+        //获取用户信息
+        char[] password1 = jPasswordFieldOne.getPassword();
+        char[] password2 = jPasswordFieldTwo.getPassword();
+
+        String passwordO = String.valueOf(password1);
+        String passwordT = String.valueOf(password2);
+
+        int len = jTextField.getText().length();
+
+        //判断注册时用户名长度是否符合规则
+        boolean isTextField = len > index[0] && len <= index[1];
+        //判断注册时密码长度是否符合规则
+        boolean isPasswordValid = passwordO.equals(passwordT) &&
+                passwordO.length() >= index[1] && passwordO.length() <= index[2];
+
+
+        //进行用户名密码是否符合规则，执行相对应的操作
+        if (isTextField && isPasswordValid) {
+            //判断数据库中是否有相同IP
+
+            final String ID = String.valueOf(random_ID());
+
+            final String id = ID;
+            //getMassage();写入数据库，分别是随机产生一个ID，用户名，密码
+            getMassage(id,jTextField.getText(),passwordT);
+
+            //duplicateID();写入数据库，分别是ID号和用户名
+            get(id, GetIP.getIPv4());
+
+            JOptionPane.showMessageDialog(null,"您的账号为:"+ID+"请牢记!","注册成功!",JOptionPane.WARNING_MESSAGE);
+
+            //清除注册后文本框中所有信息
+            jPasswordFieldOne.setText("");
+            jPasswordFieldOne.setText("");
+            jFrame.setVisible(false);
+        }else{
+            try {
+                String errorMessage = "用户信息无效！\n" +
+                        "用户名长度必须为 1-3 个字符,密码长度必须介于 6 到 16 个字符之间,两次密码必须一致!";
+                //若注册失败，则重新刷新默认用户名
+                int count = 5;
+                StringBuilder user = new StringBuilder();
+                for (int i = 0; i < count; i++) {
+                    user.append(generateSimpleChineseChar());
+                }
+                jTextField.setText(String.valueOf(user));
+                //清空注册框中的密码信息
+                jPasswordFieldOne.setText("");
+                jPasswordFieldTwo.setText("");
+                throw new UserNameMessageException(errorMessage);
+            } catch (UserNameMessageException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }

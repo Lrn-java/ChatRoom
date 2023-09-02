@@ -1,6 +1,5 @@
 package ChatRoom.li.GetMessage;
 
-import ChatRoom.li.LoginScreen.LoginScreen;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 public interface SelectDatabase extends GetIP{
 
     String mysql_user = "root";
-    String mysql_password = "";
+    String mysql_password = "758206lrnandlxnA";
 
     String databasesURL = "jdbc:mysql://"+ GetIP.getIPv4()+":3306/user_info";
 

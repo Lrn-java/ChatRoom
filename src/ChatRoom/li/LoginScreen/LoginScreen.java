@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
+import static java.awt.event.KeyEvent.VK_ENTER;
 import static java.lang.System.out;
 
 /**
@@ -144,7 +145,9 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
 
             @Override
             public void keyPressed(KeyEvent e) {
-
+                if(e.getKeyCode() == VK_ENTER){
+                    isGetInformation();
+                }
             }
 
             @Override
@@ -154,6 +157,24 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
 
         });
 
+        jPasswordField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == VK_ENTER){
+                    isGetInformation();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         //添加组件
         container.add(jTextField);
         container.add(jPasswordField);
@@ -172,6 +193,30 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
         QQ_Login.setBounds(440, 340, 88, 30);
         QQ_Login.setBackground(new Color(0x328FFA));
         QQ_Login.setForeground(new Color(0xFFFFFF));
+
+        VisitorLogin.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+/*
+                 判断用户网络情况
+                 */
+                if (isNetworkAvailable()) {
+                    new GuestModeWindow();
+                } else {
+                    JOptionPane.showMessageDialog(null, "没有网络连接！");
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         VisitorLogin.addMouseListener(new MouseAdapter() {
             @Override
@@ -220,15 +265,33 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
                 QQ_Login.setFont(new Font("微软雅黑", Font.PLAIN, 13));
                 super.mouseEntered(e);
             }
-
             @Override
             public void mouseExited(MouseEvent e) {
                 QQ_Login.setFont(new Font("Dialog", Font.PLAIN, 12));
                 QQ_Login.setText("登 录");
                 super.mouseExited(e);
             }
+
         });
 
+        QQ_Login.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == VK_ENTER){
+                    isGetInformation();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         //添加按钮
         container.add(VisitorLogin);
         container.add(QQ_Login);
@@ -252,7 +315,6 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
         char[] password = jPasswordField.getPassword();
         return String.valueOf(password);
     }
-
 
     /**
      * 这个方法是用来判断用户名输入的值是否在数据库中
@@ -288,7 +350,13 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-
         return false;
+    }
+
+    /**
+     * 这个方法是用来处理登录按钮后的逻辑
+     */
+    private void isGetInformation(){
+        checkCredentials(getUserName(),getUserPassword());
     }
 }
