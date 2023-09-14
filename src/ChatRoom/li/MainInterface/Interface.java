@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static java.lang.System.out;
-
 /**
  * 创建界面类，这个界面是主界面的布局标签
  * @author Lrn
@@ -99,8 +97,8 @@ public class Interface extends JFrame {
         add(ContactPanel);
         add(ChatPanel);
 
-        setMinimumSize(new Dimension(796,503));
         setSearchBox();
+        setMinimumSize(new Dimension(796,503));
         setVisible(true);
     }
 
@@ -126,8 +124,11 @@ public class Interface extends JFrame {
 
     JTextField searchBox = new JTextField("🔍搜索");
 
+    /**
+     * 设置搜索框
+     */
     private void setSearchBox(){
-        searchBox.setBounds(5,5,60,30);
+        searchBox.setBounds(10,10,60,30);
         searchBox.setLayout(null);
         searchBox.setBackground(new Color(0xF5F5F5F5, true));
 
@@ -140,7 +141,7 @@ public class Interface extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if("🔍搜索".equals(searchBox.getText())){
+                if(searchBox.getText().equals("🔍搜索")){
 
                 }else{
                     searchBox.setBackground(new Color(0xFFFFFF));
@@ -151,12 +152,10 @@ public class Interface extends JFrame {
                         throw new RuntimeException(ex);
                     }
                 }
-
                 super.mouseExited(e);
             }
 
         });
         SearchPanel.add(searchBox);
-
     }
 }

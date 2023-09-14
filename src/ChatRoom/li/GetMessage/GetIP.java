@@ -20,7 +20,6 @@ public interface GetIP {
      */
     static String getIPv4() {
         StringBuilder resultBuilder = new StringBuilder();
-
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             int count = 0;

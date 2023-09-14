@@ -2,17 +2,13 @@ package ChatRoom.li.LoginScreen;
 
 import ChatRoom.li.GetMessage.GetIP;
 import ChatRoom.li.GetMessage.WriteToDatabases;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
-
-import static java.awt.event.KeyEvent.VK_COMPOSE;
 import static java.awt.event.KeyEvent.VK_ENTER;
-import static java.lang.System.out;
 
 /**
  * 这个类游客登录窗口
@@ -205,7 +201,8 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == VK_ENTER){
+                //当监听道回车按钮后则进行逻辑处理
+                if(e.getKeyCode() == VK_ENTER && isNetworkAvailable()  ){
                     isGetInformation();
                 }
             }
@@ -224,7 +221,7 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == VK_ENTER){
+                if(e.getKeyCode() == VK_ENTER && isNetworkAvailable()){
                     isGetInformation();
                 }
             }
@@ -243,7 +240,8 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == VK_ENTER){
+
+                if(e.getKeyCode() == VK_ENTER && isNetworkAvailable()){
                     isGetInformation();
                 }
             }
@@ -313,6 +311,7 @@ public class GuestModeWindow implements WriteToDatabases, GetIP {
             } catch (UserNameMessageException ex) {
                 ex.printStackTrace();
             }
+
         }
     }
 

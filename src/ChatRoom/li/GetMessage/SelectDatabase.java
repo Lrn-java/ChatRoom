@@ -14,9 +14,9 @@ import java.sql.SQLException;
 public interface SelectDatabase extends GetIP{
 
     String mysql_user = "root";
-    String mysql_password = "758206lrnandlxnA";
+    String mysql_password = "hello";
 
-    String databasesURL = "jdbc:mysql://"+ GetIP.getIPv4()+":3306/user_info";
+    String databasesURL = "jdbc:mysql://:3306/user_info";
 
     /**
      * 查询数据库中的数据
@@ -42,7 +42,6 @@ public interface SelectDatabase extends GetIP{
                     return true;
                 }
             }
-
             // 用户不存在或密码不匹配
             JOptionPane.showMessageDialog(null, "账号密码不正确，请检查后输入");
             resultSet.close();

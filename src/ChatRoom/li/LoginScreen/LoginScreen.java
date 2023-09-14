@@ -9,9 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-
 import static java.awt.event.KeyEvent.VK_ENTER;
-import static java.lang.System.out;
 
 /**
  * 这个类是定义登录界面属性
@@ -126,37 +124,6 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
         });
 
         //用户名框添加键盘监听效果
-        jTextField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if(jTextField.getText().equals(text)){
-                    jTextField.setText("");
-                    jTextField.setFont(new Font("微软雅黑",Font.PLAIN,15));
-                    jTextField.setOpaque(false);
-                    jTextField.setForeground(new Color(0, 0, 0, 255));
-                }
-
-                if(jTextField.getText() == null){
-                    jTextField.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-                    jTextField.setText("");
-                }
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == VK_ENTER){
-                    isGetInformation();
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-
-        });
-
         jPasswordField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -283,7 +250,12 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == VK_ENTER){
-                    isGetInformation();
+                    if (isNetworkAvailable()) {
+                        isGetInformation();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "没有网络连接！");
+                    }
+
                 }
             }
 
@@ -359,4 +331,5 @@ public class LoginScreen extends JFrame implements SelectDatabase , GetIP {
     private void isGetInformation(){
         checkCredentials(getUserName(),getUserPassword());
     }
+
 }
